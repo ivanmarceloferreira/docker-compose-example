@@ -6,7 +6,7 @@ function App() {
 
   const handleClick = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/');
+      const response = await axios.get('http://localhost:8080/api/');
       console.log('Response:', response.data);
     } catch (error) {
       console.error('There was an error making the request:', error);
