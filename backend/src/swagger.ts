@@ -65,6 +65,10 @@ const options: swaggerJsdoc.Options = {
                             type: 'integer',
                             example: 1,
                         },
+                        genderId: {
+                            type: 'integer',
+                            example: 1,
+                        },
                         createdAt: {
                             type: 'string',
                             format: 'date-time',
@@ -77,6 +81,9 @@ const options: swaggerJsdoc.Options = {
                         },
                         artist: {
                             $ref: '#/components/schemas/Artist', // Reference the Artist schema
+                        },
+                        gender: {
+                            $ref: '#/components/schemas/Gender', // Reference the Gender schema
                         },
                     },
                 },
@@ -100,6 +107,58 @@ const options: swaggerJsdoc.Options = {
                             type: 'string',
                             format: 'date-time',
                             example: '2023-10-01T12:00:00Z',
+                        },
+                    },
+                },
+                Gender: {
+                    type: 'object',
+                    properties: {
+                        id: {
+                            type: 'integer',
+                            example: 1,
+                        },
+                        name: {
+                            type: 'string',
+                            example: 'Gender 1',
+                        },
+                        createdAt: {
+                            type: 'string',
+                            format: 'date-time',
+                            example: '2023-10-01T12:00:00Z',
+                        },
+                        updatedAt: {
+                            type: 'string',
+                            format: 'date-time',
+                            example: '2023-10-01T12:00:00Z',
+                        },
+                    },
+                },
+                Playlist: {
+                    type: 'object',
+                    properties: {
+                        id: {
+                            type: 'integer',
+                            example: 1,
+                        },
+                        name: {
+                            type: 'string',
+                            example: 'My Playlist',
+                        },
+                        createdAt: {
+                            type: 'string',
+                            format: 'date-time',
+                            example: '2023-10-01T12:00:00Z',
+                        },
+                        updatedAt: {
+                            type: 'string',
+                            format: 'date-time',
+                            example: '2023-10-01T12:00:00Z',
+                        },
+                        musics: {
+                            type: 'array',
+                            items: {
+                                $ref: '#/components/schemas/Music',
+                            },
                         },
                     },
                 },
