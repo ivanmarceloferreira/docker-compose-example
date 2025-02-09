@@ -10,7 +10,7 @@ export function TextInput({
 }: {
   name: string;
   rules?: object;
-  type: React.HTMLInputTypeAttribute;
+  type?: React.HTMLInputTypeAttribute;
   placeholder?: string;
   label?: string;
 }) {

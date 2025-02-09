@@ -1,31 +1,70 @@
 // import { Button } from "@/components/ui/button";
 import { Link } from "react-router";
 import loginImage from "../../assets/login-image.webp";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/custom/Logo";
 import { TextInput } from "@/components/custom/TextInput";
 import { cpf } from "cpf-cnpj-validator";
+import { useCallback, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router";
+
+import { useToast } from "@/hooks/use-toast";
 
 type ISignUpForm = {
   email: string;
   password: string;
   confirmPassword: string;
-  cpf: string;
+  document: string;
+  name: string;
 };
 
 const SignUpForm = () => {
   const form = useForm<ISignUpForm>();
-  const onSubmit: SubmitHandler<ISignUpForm> = (data) => console.log(data);
-
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { toast } = useToast();
   const password = form.watch("password");
   const confirmPassword = form.watch("confirmPassword");
+
+  const onCreateUser = useCallback(
+    async (values: ISignUpForm) => {
+      try {
+        setLoading(true);
+        await axios.post("/users", {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          document: values.document,
+        });
+        toast({
+          title: "Sucesso",
+          description: "Usuário criado com sucesso!",
+        });
+        navigate("/login");
+      } catch (error) {
+        console.log(error);
+        if (axios.isAxiosError(error)) {
+          toast({
+            variant: "destructive",
+            title: "Erro",
+            description: error?.response?.data?.error,
+          });
+        }
+      } finally {
+        setLoading(false);
+      }
+    },
+    [navigate, toast]
+  );
 
   return (
     <article>
       <FormProvider {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)}>
+        <form onSubmit={form.handleSubmit(onCreateUser)}>
           <section className="flex flex-col gap-8 pt-10">
+            <TextInput label="Nome" name="name" rules={{ required: true }} />
             <TextInput
               type="email"
               label="E-mail"
@@ -35,7 +74,7 @@ const SignUpForm = () => {
             <TextInput
               type="text"
               label="CPF"
-              name="cpf"
+              name="document"
               rules={{
                 validate: {
                   validCPF: (value: string) =>
@@ -61,7 +100,7 @@ const SignUpForm = () => {
                 },
               }}
             />
-            <Button type="submit" className="bg-slate-800">
+            <Button type="submit" className="bg-slate-800" loading={loading}>
               Entrar
             </Button>
           </section>

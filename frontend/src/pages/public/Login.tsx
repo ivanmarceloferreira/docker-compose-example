@@ -1,11 +1,15 @@
 // import { Button } from "@/components/ui/button";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import loginImage from "../../assets/login-image.webp";
 
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/custom/Logo";
 import { TextInput } from "@/components/custom/TextInput";
+import { useCallback, useContext, useState } from "react";
+import axios from "axios";
+import { useToast } from "@/hooks/use-toast";
+import AuthContext from "@/contexts/auth";
 
 type ILoginForm = {
   email: string;
@@ -14,7 +18,35 @@ type ILoginForm = {
 
 const LoginForm = () => {
   const form = useForm<ILoginForm>();
-  const onSubmit: SubmitHandler<ILoginForm> = (data) => console.log(data);
+  const [loading, setLoading] = useState(false);
+  const { toast } = useToast();
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+
+  const onSubmit = useCallback(
+    async (values: ILoginForm) => {
+      try {
+        setLoading(true);
+        const { data } = await axios.post("/auth/login", {
+          email: values.email,
+          password: values.password,
+        });
+        authContext.login(data.token);
+        navigate("/playlists");
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          toast({
+            variant: "destructive",
+            title: "Erro",
+            description: error?.response?.data?.error,
+          });
+        }
+      } finally {
+        setLoading(false);
+      }
+    },
+    [authContext, navigate, toast]
+  );
 
   return (
     <article>
@@ -33,7 +65,7 @@ const LoginForm = () => {
               name="password"
               rules={{ required: true }}
             />
-            <Button type="submit" className="bg-slate-800">
+            <Button type="submit" className="bg-slate-800" loading={loading}>
               Entrar
             </Button>
           </section>
