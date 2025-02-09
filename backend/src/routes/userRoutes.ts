@@ -28,11 +28,14 @@ const router = express.Router();
  *                 type: string
  *               email:
  *                 type: string
+ *               document:
+ *                 type: string
  *               password:
  *                 type: string
  *             example:
  *               name: John Doe
  *               email: john@example.com
+ *               document: 00000000000
  *               password: password123
  *     responses:
  *       201:
@@ -126,11 +129,14 @@ router.get('/users/:id', authMiddleware, getUserById);
  *                 type: string
  *               email:
  *                 type: string
+ *               document:
+ *                 type: string
  *               password:
  *                 type: string
  *             example:
  *               name: Jane Doe
  *               email: jane@example.com
+ *               document: 00000000000
  *               password: newpassword123
  *     responses:
  *       200:

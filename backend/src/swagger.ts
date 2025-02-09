@@ -34,6 +34,10 @@ const options: swaggerJsdoc.Options = {
                             type: 'string',
                             example: 'john@example.com',
                         },
+                        document: {
+                            type: 'string',
+                            example: '00000000000',
+                        },
                         password: {
                             type: 'string',
                             example: 'hashedpassword123',

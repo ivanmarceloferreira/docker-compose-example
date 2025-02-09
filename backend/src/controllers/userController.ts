@@ -4,17 +4,17 @@ import UserModel from '../models/UserModel';
 // Create a User
 export const createUser = async (req: Request, res: Response) => {
     try {
-        const { name, email, password } = req.body;
-        if (!name || !email || !password) {
+        const { name, email, document, password } = req.body;
+        if (!name || !email || !document || !password) {
             return res
                 .status(400)
                 .json({ error: 'Name, email, and password are required' });
         }
 
-        const user = await UserModel.create({ name, email, password });
+        const user = await UserModel.create({ name, email, document, password });
         res.status(201).json(user);
     } catch (error) {
-        res.status(500).json({ error: 'Something went wrong!' });
+        res.status(500).json({ error });
     }
 };
 
@@ -50,11 +50,11 @@ export const updateUser = async (
     res: Response
 ) => {
     try {
-        const { name, email, password } = req.body;
-        if (!name || !email) {
+        const { name, email, document, password } = req.body;
+        if (!name || !email || !document || !password) {
             return res
                 .status(400)
-                .json({ error: 'Name and email are required' });
+                .json({ error: 'Name, email and document are required' });
         }
 
         const user = await UserModel.findByPk(req.params.id);
@@ -64,6 +64,7 @@ export const updateUser = async (
 
         user.name = name;
         user.email = email;
+        user.document = document;
         if (password) {
             user.password = password; // Password will be hashed automatically by the model hook
         }
