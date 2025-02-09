@@ -33,6 +33,6 @@ const router = express.Router();
  *       500:
  *         description: Internal server error
  */
-router.post('/login', loginUser);
+router.post('/auth/login', loginUser);
 
 export default router;

@@ -26,7 +26,7 @@ app.use(express.json());
 
 // Routes
 app.use(cors())
-app.use('/auth', loginRoutes);
+app.use('/api', loginRoutes);
 app.use('/api', userRoutes);
 app.use('/api', musicRoutes);
 app.use('/api', genderRoutes);
