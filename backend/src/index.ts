@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import sequelize from './config/database';
-import { setupSwagger } from './swagger'; 
-
+import { setupSwagger } from './swagger';
+import cors from "cors";
 import userRoutes from './routes/userRoutes';
 import loginRoutes from './routes/loginRoutes';
 import musicRoutes from './routes/musicRoutes';
@@ -22,9 +22,11 @@ sequelize
 const app = express();
 const port = 3000;
 
+
 app.use(express.json());
 
 // Routes
+app.use(cors())
 app.use('/auth', loginRoutes);
 app.use('/api', userRoutes);
 app.use('/api', musicRoutes);

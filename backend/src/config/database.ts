@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-import dotenv from "dotenv/config.js";
+import "dotenv/config";
 
 // Define the database connection configuration
 const sequelize = new Sequelize(
