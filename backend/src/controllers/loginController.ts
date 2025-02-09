@@ -22,7 +22,7 @@ export const loginUser = async (req: Request, res: Response) => {
         }
 
         // Generate a JWT token
-        const token = generateToken(user.id!);
+        const token = generateToken(user);
 
         res.json({ message: 'Login successful', token });
     } catch (error) {
