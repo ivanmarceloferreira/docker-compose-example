@@ -1,4 +1,4 @@
-import { NavLink } from "react-router";
+import { NavLink, useNavigate } from "react-router";
 import { Logo } from "./Logo";
 import { ReactNode, useContext } from "react";
 import {
@@ -8,6 +8,8 @@ import {
   MdPlaylistPlay,
 } from "react-icons/md";
 import AuthContext from "@/contexts/auth";
+import { Button } from "../ui/button";
+import { HiLogout } from "react-icons/hi";
 
 const DrawerItem = ({
   to,
@@ -29,10 +31,14 @@ const DrawerItem = ({
 );
 
 const Drawer = () => {
+  const navigate = useNavigate();
   const authContext = useContext(AuthContext);
-  console.log({ authContext });
+  const handleLogout = () => {
+    authContext.logout();
+    navigate("/");
+  };
   return (
-    <nav className="max-w-[230px] w-full bg-white p-4">
+    <nav className="fixed top-0 left-0 h-full shadow-md max-w-[230px] w-full bg-white p-4">
       <div className="flex flex-col h-full justify-between">
         <div>
           <Logo />
@@ -55,7 +61,10 @@ const Drawer = () => {
             </DrawerItem>
           </section>
         </div>
-        {/* <div>{authContext?.user?.name}</div> */}
+        <Button onClick={handleLogout}>
+          <HiLogout />
+          Sair
+        </Button>
       </div>
     </nav>
   );

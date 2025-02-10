@@ -14,7 +14,7 @@ export const PrivateRouteWrapper = ({
   return token ? (
     <div className="flex flex-1 bg-slate-100 w-screen h-screen">
       <Drawer />
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 ml-[230px]">
         <Outlet />
       </div>
     </div>

@@ -40,6 +40,12 @@ const LoginForm = () => {
             title: "Erro",
             description: error?.response?.data?.error,
           });
+        } else {
+          toast({
+            variant: "destructive",
+            title: "Erro",
+            description: "Função indisponível, tente novamente mais tarde",
+          });
         }
       } finally {
         setLoading(false);
