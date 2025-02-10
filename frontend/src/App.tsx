@@ -7,8 +7,9 @@ import { AuthProvider } from "./contexts/auth";
 
 import { PrivateRouteWrapper } from "./components/custom/PrivateRoute";
 import Musics from "./pages/auth/Musics";
-import Generes from "./pages/auth/Generes";
+import Generes from "./pages/auth/Genres";
 import Artists from "./pages/auth/Artists";
+import CreateEditArtist from "./pages/auth/CreateEditArtist";
 
 const AppRoutes = () => {
   const token = localStorage.getItem("token");
@@ -18,8 +19,9 @@ const AppRoutes = () => {
       <Route element={<PrivateRouteWrapper token={token} />}>
         <Route path="/playlists" element={<Playlists />} />
         <Route path="/musics" element={<Musics />} />
-        <Route path="/generes" element={<Generes />} />
+        <Route path="/genres" element={<Generes />} />
         <Route path="/artists" element={<Artists />} />
+        <Route path="/artists/:id" element={<CreateEditArtist />} />
       </Route>
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
