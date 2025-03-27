@@ -10,6 +10,7 @@ import Musics from "./pages/auth/Musics";
 import Generes from "./pages/auth/Genres";
 import Artists from "./pages/auth/Artists";
 import CreateEditArtist from "./pages/auth/CreateEditArtist";
+import Test from "./pages/Test";
 
 const AppRoutes = () => {
   const token = localStorage.getItem("token");
@@ -25,6 +26,7 @@ const AppRoutes = () => {
       </Route>
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/test" element={<Test />} />
     </Routes>
   );
 };
